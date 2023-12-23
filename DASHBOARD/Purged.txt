@@ -1,0 +1,2 @@
+npx purgecss --css assets/css/*.css --content pages/*.html assets/js/*.js --output assets/css/
+npx terser --compress --mangle --output assets/js/purged.js -- assets/js/*.js
