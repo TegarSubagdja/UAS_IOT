@@ -1,6 +1,6 @@
 let mqttClient;
-const topic1 = "data-dari-esp32-1"; // Ganti dengan topik pertama yang diinginkan
-const topic2 = "data-object-detection"; // Ganti dengan topik kedua yang diinginkan
+const topic1 = "dht-value"; // Ganti dengan topik pertama yang diinginkan
+const topic2 = "image-topic"; // Ganti dengan topik kedua yang diinginkan
 
 window.addEventListener("load", (event) => {
     connectToBroker();

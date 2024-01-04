@@ -7,6 +7,11 @@ from io import BytesIO
 import supervision as sv
 from ultralytics import YOLO
 
+# MQTT Configuration
+mqtt_broker = "broker.hivemq.com"
+mqtt_port = 1883
+mqtt_topic = "data-object-detection"
+
 # Function to read an image from a URL
 def read_image_from_url(url):
     response = requests.get(url)
@@ -19,11 +24,6 @@ def encode_image_to_base64(image):
     _, buffer = cv2.imencode('.jpg', image)
     base64_encoded = base64.b64encode(buffer).decode('utf-8')
     return f"data:image/jpeg;base64,{base64_encoded}"
-
-# MQTT Configuration
-mqtt_broker = "broker.hivemq.com"
-mqtt_port = 1883
-mqtt_topic = "data-object-detection"
 
 client = mqtt.Client()
 
