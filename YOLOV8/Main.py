@@ -3,7 +3,7 @@ import numpy as np
 import requests
 import base64
 import paho.mqtt.client as mqtt
-from io import BytesIO
+import io
 import supervision as sv
 from ultralytics import YOLO
 import time
@@ -13,6 +13,9 @@ mqtt_broker = "broker.hivemq.com"
 mqtt_port = 1883
 mqtt_image_topic = "image-topic"
 mqtt_people_count_topic = "sum-people"
+
+# Server API Configuration
+api_url = "http://127.0.0.1:8000/api/img"
 
 # Function to read an image from a URL
 def read_image_from_url(url):
@@ -25,8 +28,7 @@ def read_image_from_url(url):
     except requests.exceptions.RequestException as e:
         print(f"Error reading image from URL: {e}")
         return None
-
-# Function to encode an image to Base64
+    
 def encode_image_to_base64(image):
     _, buffer = cv2.imencode('.jpg', image)
     base64_encoded = base64.b64encode(buffer).decode('utf-8')
@@ -74,12 +76,24 @@ while True:
         # Encode the image to Base64 with the appropriate prefix
         base64_image = encode_image_to_base64(frame)
 
-        # Publish Base64-encoded image to MQTT with image topic
-        result_image = client.publish(mqtt_image_topic, base64_image)
-        if result_image.rc == mqtt.MQTT_ERR_SUCCESS:
-            print("Image successfully sent to MQTT broker.")
-        else:
-            print("Failed to send image to MQTT broker.")
+        if people_count >= 5 and False:
+            # Encode the image to bytes in JPEG format
+            _, buffer = cv2.imencode('.jpg', frame)
+            image_bytes = buffer.tobytes()
+
+            # Create a file-like object from the image data
+            image_file = io.BytesIO(image_bytes)
+
+            # Send the image as form data along with other data
+            files = {'image': ('image.jpg', image_file, 'image/jpeg')}
+            data = {'people_count': people_count}
+
+            try:
+                response = requests.post(api_url, files=files, data=data)
+                response.raise_for_status()
+                print("Image and data successfully sent to server.")
+            except requests.exceptions.RequestException as e:
+                print(f"Failed to send image and data to server. Error: {e}")
 
         # Publish people count to MQTT with people count topic
         result_people_count = client.publish(mqtt_people_count_topic, str(people_count))
@@ -88,8 +102,15 @@ while True:
         else:
             print("Failed to send people count to MQTT broker.")
 
+        # Publish Base64-encoded image to MQTT with image topic
+        result_image = client.publish(mqtt_image_topic, base64_image)
+        if result_image.rc == mqtt.MQTT_ERR_SUCCESS:
+            print("Image successfully sent to MQTT broker.")
+        else:
+            print("Failed to send image to MQTT broker.")
+
     # Wait for 1 second before capturing the next image
-    time.sleep(1)
+    time.sleep(3)
 
 # Disconnect from MQTT broker
 client.disconnect()
