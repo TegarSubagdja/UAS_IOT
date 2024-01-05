@@ -51,7 +51,7 @@ except Exception as e:
 
 url = "https://callsam.com/wp-content/uploads/2019/12/crosswalk-featured-1200x799.jpg"  # Replace with your image URL
 model = YOLO("yolov8s.pt")  # Ensure you have the "yolov8s.pt" model file in the correct directory
-bbox_annotator = sv.BoxAnnotator()
+bbox_annotator = sv.TriangleAnnotator()
 
 while True:
     # Capture an image
@@ -66,7 +66,7 @@ while True:
         labels = [result.names[class_id] for class_id in detections.class_id]
 
         # Access the detection data from the Detections object
-        frame = bbox_annotator.annotate(scene=frame, detections=detections, labels=labels)
+        frame = bbox_annotator.annotate(scene=frame, detections=detections)
 
         # Count the number of people detected
         people_count += labels.count("person")
