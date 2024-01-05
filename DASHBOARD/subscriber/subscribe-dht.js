@@ -1,5 +1,5 @@
 let mqttClient;
-const topic1 = "dht-value"; // Ganti dengan topik pertama yang diinginkan
+const topic1 = "all-data"; // Ganti dengan topik pertama yang diinginkan
 const topic2 = "image-topic"; // Ganti dengan topik kedua yang diinginkan
 
 window.addEventListener("load", (event) => {
@@ -55,13 +55,17 @@ function handleReceivedData(receivedTopic, dataString) {
         const dataArray = dataString.split(","); // Pisahkan nilai berdasarkan koma
         const value1 = parseFloat(dataArray[0].trim()); // Ambil nilai pertama dan konversi ke float
         const value2 = parseFloat(dataArray[1].trim()); // Ambil nilai kedua dan konversi ke float
+        const value3 = parseFloat(dataArray[2].trim()); // Ambil nilai kedua dan konversi ke float
+
 
         // Tampilkan nilai di elemen HTML
         const suhuArea = document.getElementById("suhuDht");
         const kelembabanArea = document.getElementById("kelembabanDht");
+        const jumlahOrang = document.getElementById("sum");
 
         suhuArea.innerHTML = `${value1} <span class="text-success text-sm font-weight-bolder">°</span>`;
         kelembabanArea.innerHTML = `${value2} <span class="text-success text-sm font-weight-bolder">%</span>`;
+        jumlahOrang.innerHTML = `${value3} <span class="text-success text-sm font-weight-bolder">orang</span>`;
     } else if (receivedTopic === topic2) {
         // Misalkan format data adalah base64 gambar
         const base64Image = dataString;
