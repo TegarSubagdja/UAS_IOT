@@ -2,6 +2,20 @@ let mqttClient;
 const topic1 = "all-data"; // Ganti dengan topik pertama yang diinginkan
 const topic2 = "image-topic"; // Ganti dengan topik kedua yang diinginkan
 
+// Pilih elemen range
+var rangeInput = document.getElementById("customRange1");
+
+// Atur properti background-image pada saat halaman dimuat
+rangeInput.style.backgroundImage = getGradientColor(rangeInput.value);
+
+// Fungsi untuk mendapatkan gradient warna
+function getGradientColor(value) {
+    var color1 = '#7928CA';  // Start color
+    var color2 = '#FF0080';  // End color
+    var gradient = 'linear-gradient(310deg, ' + color1 + ' 0%, ' + color2 + ' ' + value + '%)';
+    return gradient;
+}
+
 window.addEventListener("load", (event) => {
     connectToBroker();
 });
@@ -56,16 +70,19 @@ function handleReceivedData(receivedTopic, dataString) {
         const value1 = parseFloat(dataArray[0].trim()); // Ambil nilai pertama dan konversi ke float
         const value2 = parseFloat(dataArray[1].trim()); // Ambil nilai kedua dan konversi ke float
         const value3 = parseFloat(dataArray[2].trim()); // Ambil nilai kedua dan konversi ke float
+        const value4 = parseInt(dataArray[3].trim()); // Ambil nilai kedua dan konversi ke float
 
 
         // Tampilkan nilai di elemen HTML
         const suhuArea = document.getElementById("suhuDht");
         const kelembabanArea = document.getElementById("kelembabanDht");
         const jumlahOrang = document.getElementById("sum");
+        const estimasi = document.getElementById("estimasi");
 
         suhuArea.innerHTML = `${value1} <span class="text-success text-sm font-weight-bolder">°</span>`;
         kelembabanArea.innerHTML = `${value2} <span class="text-success text-sm font-weight-bolder">%</span>`;
         jumlahOrang.innerHTML = `${value3} <span class="text-success text-sm font-weight-bolder">orang</span>`;
+        estimasi.innerHTML = `${value4} <span class="text-success text-sm font-weight-bolder">orang</span>`;
     } else if (receivedTopic === topic2) {
         // Misalkan format data adalah base64 gambar
         const base64Image = dataString;

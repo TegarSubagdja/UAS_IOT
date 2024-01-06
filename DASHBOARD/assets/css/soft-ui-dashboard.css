@@ -4184,3 +4184,8 @@ https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javasc
   border-radius: 12px;
   width: 95%;
 }
+
+.gradient-btn {
+  background: linear-gradient(310deg, #7928CA 0%, #FF0080 100%);
+  color: white;
+}
