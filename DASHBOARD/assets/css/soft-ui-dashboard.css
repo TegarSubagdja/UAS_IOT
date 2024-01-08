@@ -806,8 +806,7 @@ progress {
 }
 
 .btn:hover {
-  color: var(--bs-btn-hover-color);
-  background-color: var(--bs-btn-hover-bg);
+  color: var(--bs-white);
   border-color: var(--bs-btn-hover-border-color);
 }
 
@@ -2206,7 +2205,7 @@ progress {
 
 .btn:hover:not(.btn-icon-only) {
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.09), 0 2px 3px -1px rgba(0, 0, 0, 0.07);
-  transform: scale(1.02);
+  transform: scale(1.05);
 }
 
 .btn.bg-white:hover {
@@ -2524,7 +2523,7 @@ progress {
     transition: visibility 0.25s, opacity 0.25s, transform 0.25s;
   }
 
-  
+
   .dropdown .dropdown-menu {
     display: block;
     opacity: 0;
@@ -2537,7 +2536,7 @@ progress {
     will-change: transform, box-shadow;
   }
 
-  
+
   .dropdown .dropdown-menu.show {
     opacity: 1;
     pointer-events: auto;
@@ -2545,7 +2544,7 @@ progress {
     transform: perspective(999px) rotateX(0deg) translateZ(0) translate3d(0, 37px, 5px) !important;
   }
 
-  
+
   .dropdown .dropdown-menu.show:before {
     top: -20px;
   }
@@ -4188,4 +4187,69 @@ https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javasc
 .gradient-btn {
   background: linear-gradient(310deg, #7928CA 0%, #FF0080 100%);
   color: white;
+}
+
+input[type="range"] {
+  position: relative;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: block;
+  width: 80%;
+  height: 8px;
+  background-color: #d5d5d5;
+  border-radius: 8px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 8px;
+}
+
+input[type="range"]::-moz-track {
+  -moz-appearance: none;
+  height: 8px;
+}
+
+input[type="range"]::-ms-track {
+  appearance: none;
+  height: 8px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  background: linear-gradient(310deg, #7928CA 0%, #FF0080 100%);
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -6px;
+  border: none;
+}
+
+input[type="range"]::-moz-range-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  background: linear-gradient(310deg, #7928CA 0%, #FF0080 100%);
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -6px;
+  border: none;
+}
+
+input[type="range"]::-ms-thumb {
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  background: linear-gradient(310deg, #7928CA 0%, #FF0080 100%);
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -6px;
+  border: none;
+}
+
+input[type="range"]:active::-webkit-slider-thumb {
+  background-color: #ffffff;
+  border: 3px solid #7928CA;
 }

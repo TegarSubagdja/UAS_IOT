@@ -415,18 +415,14 @@
                 <div class="row">
                   <div class="servoOne">
                     <h6 class=" mb-0"> Servo MG995R </h6>
-                    <input type="range" class="mb-4 w-100" id="customRange1" min="0" max="180">
+                    <input type="range" class="mb-4 mt-4 w-100" id="my-slider" min="0" max="180">
                   </div>
                   <h6 class=" mb-0"> Servo MG995 </h6>
                   <div class="servoTwo d-flex">
                     <div class="col-3 py-3 ps-0">
                       <div class="d-flex">
-                        <button type="button" class="btn gradient-btn mr-2">Kiri</button>
-                      </div>
-                    </div>
-                    <div class="col-3 py-3 ps-0">
-                      <div class="d-flex">
-                        <button type="button" class="btn gradient-btn mr-2">Kanan</button>
+                        <button id="left" type="button" class="btn gradient-btn me-3 ">Kiri</button>
+                        <button id="right" type="button" class="btn gradient-btn">Kanan</button>
                       </div>
                     </div>
                   </div>
@@ -477,8 +473,8 @@
                       </th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                         kelembaban</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                          Jumlah Orang</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                        Jumlah Orang</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                         Tanggal</th>
                       <th class="text-secondary opacity-7"></th>
@@ -500,7 +496,7 @@
                 <span class="font-weight-bold">Orang/</span> hari
               </p>
             </div>
-              <!-- <div class="card-body p-3">
+            <!-- <div class="card-body p-3">
                 <div class="timeline timeline-one-side">
                   <div class="timeline-block mb-3">
                     <span class="timeline-step">
@@ -661,7 +657,8 @@
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/chartjs.min.js"></script>
-  <script src="../subscriber/subscribe-dht.js"></script>
+  <script src="../MQTT/mqtt.js"></script>
+  <script src="../MQTT/try.js"></script>
   <script src="../request api/fetch_average.js"></script>
   <script src="../request api/fetch_dashboard.js"></script>
   <script>
@@ -673,11 +670,6 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
-  <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
-  <script src="../subscriber/try.js"></script>
 </body>
 
 </html>
