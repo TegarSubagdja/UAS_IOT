@@ -63,5 +63,17 @@ void setup() {
  
 void loop()
 {
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("WiFi not connected. Reconnecting...");
+    
+    // Reconnect to WiFi
+    WiFi.begin(WIFI_SSID, WIFI_PASS);
+    while (WiFi.status() != WL_CONNECTED) {
+      delay(500);
+    }
+
+    Serial.println("WiFi reconnected");
+  }
+
   server.handleClient();
 }
