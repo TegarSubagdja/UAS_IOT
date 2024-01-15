@@ -84,8 +84,8 @@ def train_and_update_model():
 def main():
     threading.Thread(target=mqtt_subscriber, daemon=True).start()  
 
-    # url_img = "http://192.168.43.20/cam-hi.jpg"  
-    url_img = "https://roomradar.000webhostapp.com/api/img/image.jpg"  
+    url_img = "http://192.168.43.20/cam-hi.jpg"  
+    # url_img = "https://roomradar.000webhostapp.com/api/img/image.jpg"  
     model = YOLO("yolov8s.pt")  
     bbox_annotator = sv.TriangleAnnotator()
 
