@@ -84,12 +84,13 @@ def train_and_update_model():
 def main():
     threading.Thread(target=mqtt_subscriber, daemon=True).start()  
 
-    url = "http://192.168.43.20/cam-hi.jpg"  
+    # url_img = "http://192.168.43.20/cam-hi.jpg"  
+    url_img = "https://roomradar.000webhostapp.com/api/img/image.jpg"  
     model = YOLO("yolov8s.pt")  
     bbox_annotator = sv.TriangleAnnotator()
 
     while True:
-        frame = read_image_from_url(url)
+        frame = read_image_from_url(url_img)
 
         if frame is not None:
             people_count = 0
@@ -136,7 +137,9 @@ def main():
             else:
                 print("Failed to send all data to MQTT broker.")
 
-            time.sleep(1)
+            time.sleep(0.5)
+        else :
+            time.sleep(5)
 
 if __name__ == "__main__":
     api_url = 'http://localhost:8000/api/getEstimasi'  
@@ -159,4 +162,3 @@ if __name__ == "__main__":
         # Handle KeyboardInterrupt untuk menghentikan scheduler ketika diinterupsi secara manual
         scheduler.shutdown()
         print("Scheduler stopped.")
-
