@@ -1,5 +1,5 @@
 // Menggunakan Fetch API untuk mengambil data dari API
-fetch('http://127.0.0.1:8000/api/get')
+fetch('https://roomradar.000webhostapp.com/api/get_sensor')
     .then(response => response.json())
     .then(data => {
         // Data yang diterima dalam format JSON
@@ -45,7 +45,7 @@ fetch('http://127.0.0.1:8000/api/get')
             cell4.className = 'align-middle text-center text-sm';
             var sum = document.createElement('span');
             sum.className = 'badge badge-sm bg-gradient-warning';
-            sum.textContent = sensor.jumlah_orang; // Menyesuaikan dengan nama kolom pada objek sensor
+            sum.textContent = sensor.sum; // Menyesuaikan dengan nama kolom pada objek sensor
             cell4.appendChild(sum);
 
             // Kolom 5: Tanggal
@@ -53,7 +53,7 @@ fetch('http://127.0.0.1:8000/api/get')
             cell5.className = 'align-middle text-center';
             var spanDate = document.createElement('span');
             spanDate.className = 'text-secondary text-xs font-weight-bold';
-            var createdDate = new Date(sensor.create_at); // Menyesuaikan dengan nama kolom pada objek sensor
+            var createdDate = new Date(sensor.created_at); // Menyesuaikan dengan nama kolom pada objek sensor
             spanDate.textContent = createdDate.toLocaleDateString(); // Menampilkan tanggal dengan format lokal
             cell5.appendChild(spanDate);
         });

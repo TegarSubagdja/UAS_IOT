@@ -1,5 +1,5 @@
 // Menggunakan Fetch API untuk mengambil data dari API
-fetch('http://127.0.0.1:8000/api/get_sensor')
+fetch('https://roomradar.000webhostapp.com/api/get_sensor')
   .then(response => response.json())
   .then(data => {
     // Data yang diterima dalam format JSON

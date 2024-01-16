@@ -85,7 +85,7 @@ def train_and_update_model():
 def main():
     threading.Thread(target=mqtt_subscriber, daemon=True).start()  
 
-    # url_img = "http://192.168.43.20/cam-hi.jpg"  
+    # url_img = "http://192.168.43.20/cam-hi.jpg"
     url_img = "https://roomradar.000webhostapp.com/api/img/image.jpg"  
     model = YOLO("yolov8s.pt")  
     bbox_annotator = sv.TriangleAnnotator()
@@ -108,7 +108,7 @@ def main():
 
             base64_image = encode_image_to_base64(frame)
 
-            if people_count >= 7:
+            if people_count >= 15:
                 _, buffer = cv2.imencode('.jpg', frame)
                 image_bytes = buffer.tobytes()
 
@@ -139,11 +139,12 @@ def main():
             else:
                 print("Failed to send all data to MQTT broker.")
 
-            if statePush == 1:
+            if statePush == 2:
                 dataStore = {"temperature": temperature, "humidity": humidity, "sum": people_count}
                 try:
-                    response = requests.post(api_image, files=files, data=dataStore)
+                    response = requests.post(api_data, data=dataStore)
                     response.raise_for_status()
+                    statePush = 0
                     print("Image and data successfully sent to server.")
                 except requests.exceptions.RequestException as e:
                     print(f"Failed to send image and data to server. Error: {e}")

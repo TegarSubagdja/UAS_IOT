@@ -13,7 +13,7 @@ gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
 gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
 
 // Mengambil data dari server
-fetch('http://127.0.0.1:8000/api/average')
+fetch('https://roomradar.000webhostapp.com/api/average')
     .then(response => response.json())
     .then(data => {
         // Data yang diterima dalam format JSON
