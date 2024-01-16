@@ -18,7 +18,8 @@ mqtt_image_topic = "image-topic"
 mqtt_people_count_topic = "sum-people"
 mqtt_dht_topic = "dht-value"
 
-api_image = "http://127.0.0.1:8000/api/img"
+api_data = "https://roomradar.000webhostapp.com/api/store"
+api_image = "https://roomradar.000webhostapp.com/api/img"
 
 temperature = 0.0
 humidity = 0.0
@@ -84,10 +85,11 @@ def train_and_update_model():
 def main():
     threading.Thread(target=mqtt_subscriber, daemon=True).start()  
 
-    url_img = "http://192.168.43.20/cam-hi.jpg"  
-    # url_img = "https://roomradar.000webhostapp.com/api/img/image.jpg"  
+    # url_img = "http://192.168.43.20/cam-hi.jpg"  
+    url_img = "https://roomradar.000webhostapp.com/api/img/image.jpg"  
     model = YOLO("yolov8s.pt")  
     bbox_annotator = sv.TriangleAnnotator()
+    statePush = 0
 
     while True:
         frame = read_image_from_url(url_img)
@@ -137,12 +139,23 @@ def main():
             else:
                 print("Failed to send all data to MQTT broker.")
 
+            if statePush == 1:
+                dataStore = {"temperature": temperature, "humidity": humidity, "sum": people_count}
+                try:
+                    response = requests.post(api_image, files=files, data=dataStore)
+                    response.raise_for_status()
+                    print("Image and data successfully sent to server.")
+                except requests.exceptions.RequestException as e:
+                    print(f"Failed to send image and data to server. Error: {e}")
+
+            statePush += 1
+
             time.sleep(0.5)
         else :
             time.sleep(5)
 
 if __name__ == "__main__":
-    api_url = 'http://localhost:8000/api/getEstimasi'  
+    api_url = 'https://roomradar.000webhostapp.com/api/getEstimasi'  
     predictor = PeopleCountPredictor(api_url)
 
     # Buat instance scheduler
