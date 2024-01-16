@@ -21,7 +21,7 @@ class PeopleCountPredictor:
     def train_model(self, data):
         df = pd.DataFrame(data)
         X = df[['temperature', 'humidity']]
-        y = df['jumlah_orang']
+        y = df['sum']
         X.columns = ['temperature', 'humidity']
         X_train, _, y_train, _ = train_test_split(X, y, test_size=0.2, random_state=42)
         model = LinearRegression()
@@ -38,7 +38,7 @@ class PeopleCountPredictor:
             print("Model not trained. Please train the model first.")
 
 def main():
-    api_url = 'http://localhost:8000/api/getEstimasi'
+    api_url = 'https://roomradar.000webhostapp.com/api/getEstimasi'
     predictor = PeopleCountPredictor(api_url)
     data = predictor.fetch_data()
 
